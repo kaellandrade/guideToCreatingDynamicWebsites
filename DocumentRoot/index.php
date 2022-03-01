@@ -1,3 +1,3 @@
 <?php
-    phpinfo()
-?>
+    $teste = 1 || 'Micael';
+    echo $teste;
