@@ -1,3 +1,3 @@
 <?php
-    $teste = 1 || 'Micael';
-    echo $teste;
+    $author = 'Micael Andrade';
+
