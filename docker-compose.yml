@@ -1,31 +1,28 @@
 version: '3.7'
 
 services:
-    php-httpd:
-        image: php:8.0-apache
+    php-http:
+        image: php08-web-app
+        container_name: 'php08-webserver'
+        build: ./php/
         ports:
-            - 90:80
+            - "90:80"
         volumes:
-            - "./DocumentRoot:/var/www/html"
-
-    mariadb:
-        image: mariadb:10.8
-        volumes:
-            - mariadb-volume:/var/lib/mysql
-        environment:
-            TZ: "America/Sao_Paulo"
-            MYSQL_ALLOW_EMPTY_PASSWORD: "no"
-            MYSQL_ROOT_PASSWORD: "rootpwd"
-            MYSQL_USER: 'kaell'
-            MYSQL_PASSWORD: '123'
-            MYSQL_DATABASE: 'testdb'
-
-    phpmyadmin:
-        image: phpmyadmin/phpmyadmin
+            - "./:/var/www/html"
         links:
-            - 'mariadb:db'
-        ports:
-            - 8081:80
+            -   mysql
 
-volumes:
-    mariadb-volume:
+    mysql:
+        hostname: "mysql80"
+        container_name: 'web-app'
+        image: mysql:8.0
+        ports:
+            - "3306:3306"
+        volumes:
+            - "./mysql:/var/lib/mysql"
+        environment:
+            MYSQL_ROOT_PASSWORD: 123
+            MYSQL_DATABASE: test
+            MYSQL_USER: kaell
+            MYSQL_PASSWORD: 123
+            TZ: "America/Bahia"
